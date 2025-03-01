@@ -1,48 +1,19 @@
-local function createTool(name)
-    local tool = Instance.new("Tool")
-    tool.Name = name
-    tool.Parent = game.Players.LocalPlayer.Backpack
+local player = game.Players.LocalPlayer
 
-    local handle = Instance.new("Part")
-    handle.Name = "Handle"
-    handle.Size = Vector3.new(0, 0, 0) -- Ручка невидимая
-    handle.Anchored = false
-    handle.CanCollide = false
-    handle.Parent = tool
+local RemoteTestTool = Instance.new("Tool")
+RemoteTestTool.Name = "RTT Tool"
+RemoteTestTool.RequiresHandle = false
+RemoteTestTool.Parent = player.Backpack
 
-    return tool
-end
+player.CharacterAdded:Connect(function()
+    RemoteTestTool.Parent = player.Backpack
+end)
 
 local PingWords = {
-    "destroy",
-    "delete",
-    "del",
-    "place",
-    "remove",
-    "replicate",
-    "loadstring",
-    "rev",
-    "admin",
-    "create",
-    "property",
-    "spawn",
-    "clear",
-    "trash",
-    "fire",
-    "bomb",
-    "explode",
-    "color",
-    "update",
-    "car",
-    "money",
-    "cheat",
-    "data",
-    "save",
-    "build",
-    "backdoor",
-    "invis",
-    "hide",
-    "set"
+    "destroy", "delete", "del", "place", "remove", "replicate", "loadstring", "rev",
+    "admin", "create", "property", "spawn", "clear", "trash", "fire", "bomb",
+    "explode", "color", "update", "car", "money", "cheat", "data", "save",
+    "build", "backdoor", "invis", "hide", "set"
 }
 
 local PossibleRemotes = {}
@@ -57,8 +28,6 @@ for _, v in pairs(game:GetDescendants()) do
         end
     end
 end
-
-local RemoteTestTool = createTool("RTT Tool")
 
 RemoteTestTool.Activated:Connect(function()
     for _, v in pairs(PossibleRemotes) do
