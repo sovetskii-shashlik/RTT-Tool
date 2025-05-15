@@ -1,0 +1,50 @@
+local players = game:GetService("Players")
+local lp = players.LocalPlayer or players:WaitForChild("LocalPlayer")
+local bp = lp:WaitForChild("Backpack")
+local mouse = lp:GetMouse()
+local PossibleRemotes = {}
+local PingWords = {
+    "destroy", "delete", "del", "place", "remove", "replicate", "loadstring", "rev",
+    "admin", "create", "property", "spawn", "clear", "trash", "fire", "bomb",
+    "explode", "color", "update", "car", "money", "cheat", "data", "save",
+    "build", "backdoor", "invis", "hide", "set"
+}
+
+
+local RTT = Instance.new("Tool")
+RTT.Name = "remote kick Tool"
+RTT.RequiresHandle = false
+RTT.CanBeDropped = false
+RTT.Parent = bp
+
+lp.CharacterAdded:Connect(function()
+    RTT.Parent = bp
+end)
+
+for _, v in pairs(game:GetDescendants()) do
+  if v:IsA("RemoteEvent") then
+    for _, z in pairs(PingWords) do
+      if string.find(string.lower(v.Name), string.lower(z)) then
+        warn("Possible Vulnerability found: " .. v.Name .. " | " .. v.ClassName)
+        table.insert(PossibleRemotes, v)
+      end
+    end
+  end
+end
+
+RTT.Activated:Connect(function()
+  local target = mouse.Target
+  if target then
+    local model = target:FindFirstAncestorOfClass("Model")
+    if model then
+      local playerfordel = game:GetService("Players"):GetPlayerFromCharacter(model)
+      if playerfordel then
+        for _,remotes in pairs(PossibleRemotes) do
+          pcall(function()
+            remotes:FireServer(playerfordel)
+          end)
+        end
+      end
+    end
+  end
+end)
