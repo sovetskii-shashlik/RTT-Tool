@@ -12,7 +12,7 @@ local PingWords = {
 
 
 local RTT = Instance.new("Tool")
-RTT.Name = "remote kick Tool"
+RTT.Name = "RKT Tool"
 RTT.RequiresHandle = false
 RTT.CanBeDropped = false
 RTT.Parent = bp
