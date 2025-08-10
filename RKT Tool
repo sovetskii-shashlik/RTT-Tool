@@ -6,7 +6,7 @@ local PossibleRemotes = {}
 local PingWords = {
     "destroy", "delete", "del", "place", "remove", "replicate", "loadstring", "rev",
     "admin", "create", "property", "spawn", "clear", "trash", "fire", "bomb",
-    "explode", "color", "update", "car", "money", "cheat", "data", "save", "NPCClean",
+    "explode", "color", "update", "car", "money", "cheat", "data", "save", "NPCClean", "TriggerLocalScriptCleanup",
     "build", "backdoor", "invis", "hide", "set"
 }
 
